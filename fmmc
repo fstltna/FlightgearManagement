@@ -151,9 +151,10 @@ sub MainMenu
                                       '5', 'Turn Respawn On',
                                       '6', 'Edit Flightgear Config',
                                       '7', 'Backup Flightgear',
-                                      '8', 'View Screen Log',
-                                      '9', 'Kill Flightgear Process',
-                                      '10', 'Update Utils',
+                                      '8', 'View Log',
+                                      '9', 'Clear Log',
+                                      '10', 'Kill Flightgear Process',
+                                      '11', 'Update Utils',
                                       'q', 'Quit FMMC' ] );
 }
 
@@ -167,7 +168,7 @@ while (-1)
 	}
 	if ($menuselection eq "1")
 	{
-                if ($d->yesno( text => "Confirm starting the server watchdog", text => "Are you sure you want to start the server watchdog? You should likely use option #9 instead..." ))
+                if ($d->yesno( text => "Confirm starting the server watchdog", text => "Are you sure you want to start the server watchdog? You should likely use option #5 instead..." ))
                 {
                         system("$InitDName start");
                         sleep(10);
@@ -219,6 +220,11 @@ while (-1)
 	}
 	elsif ($menuselection eq "9")
 	{
+                # Clear the log file
+                system("echo > $ScreenLog");
+	}
+	elsif ($menuselection eq "10")
+	{
 		my $running=`ps ax|grep /home/flightgear/local/usr/sbin/fgms|grep -v grep`;
 	        if ($running ne "")
 		{
@@ -227,7 +233,7 @@ while (-1)
 			sleep(5);
 		}
 	}
-	elsif ($menuselection eq "10")
+	elsif ($menuselection eq "11")
 	{
 		# Update Menu
 		UpdateTools();
